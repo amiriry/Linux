@@ -25,13 +25,17 @@ In all other options - I do some text manipulation that will give all the option
 Like:<br>
 ```
 goto)
-			local completion_str=$(sed -n '/if.*argv1.*goto/,/if.*argv1.*edit/ p' $poi_path  | grep argv2 | grep -v "sed" | awk -F'[\"]' '{print $2}')
-			COMPREPLY=($(compgen -W "${completion_str}" -- "$cur"))
-			return
+	local completion_str=$(sed -n '/if.*argv1.*goto/,/if.*argv1.*edit/ p' $poi_path  | grep argv2 | grep -v "sed" | awk -F'[\"]' '{print $2}')
+	COMPREPLY=($(compgen -W "${completion_str}" -- "$cur"))
+	return
+	;;
 ```
 I take all the lines between the condition that checks if the first argument is `goto` (what I do completion for) and `edit` (which is the next one). Then I take all the second arguments `argv2`, remove the line that contins sed, which is the line that I do the command on, and pick the word between the quote marks.<br>
 That way I take all the second arguments between goto and the next argument. Which Means, again, if I add subcommand, in next start of this completion script, it will read the new completion too.<br>
 So I will do sed between the condition that I want to autocomplete and the next condition.<br>
 In other cases
+<br>
+When I want to add another first subcommand, it should be the first one, so I won't have to change the completion script<br>
+When I want to add subcommand that don't have completion for, I can add it wherever I want. In this case, only the first argument have completion. If you want second subcommand to have, you just add it to the completion script as all other options.
 
 

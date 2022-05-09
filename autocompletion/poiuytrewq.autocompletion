@@ -4,7 +4,7 @@ _poiuytrewq() {
 	_init_completion || return
 
 	case $prev in
-		poiuytrewq2)
+		poiuytrewq)
 			local completion_str=$(cat $poi_path | grep "if.*argv1.*==" | awk -F'["]' '{print $2}')
 			#completion_str=$(echo $completion_str "activate" "deactivate")
 			COMPREPLY=($(compgen -W "${completion_str}" -- "$cur"))

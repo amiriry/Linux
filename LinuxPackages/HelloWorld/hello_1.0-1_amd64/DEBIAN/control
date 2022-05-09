@@ -1,0 +1,6 @@
+Package: hellome
+Version: 1.0
+Architecture: amd64
+Maintainer: Amir Shkedy <amirshkedy@shkedy.com>
+Description: This is a basic program for printing something that is not very important
+ You can print here more things if you like.

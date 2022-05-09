@@ -1,0 +1,65 @@
+#!/bin/bash
+
+poiuytrewq() {
+	argv1=$1
+	argv2=$2
+	argv3=$3
+
+	if [ -z $argv1 ]
+	then
+		echo "Usage: poiuytrewq <command>"
+	elif [ $argv1 == "goto" ]
+	then
+		if [ -z $argv2 ]
+		then
+			echo "Usage: poiuytrewq goto <place> "
+		elif [ $argv2 == "vimfiles" ]	
+		then
+			cd $HOME/.vim
+		elif [ $argv2 == "completionscripts" ]
+		then
+			cd /etc/bash_completion.d
+		elif [ $argv2 == "projectsdevops" ]
+		then
+			cd /home/username/work/projects/devops/ci/jenkins/project_name
+		elif [ $argv2 == "projectsinfo" ]
+		then
+			cd /home/username/Documents/work/projects/project_name
+		elif [ $argv2 == "mycommands" ]
+		then
+			cd /home/username/Documents/work/projects/project_name
+		else
+			echo -e "vimfiles\n"\
+					  "completionScripts\n"\
+					  "projectsdevops\n"\
+					  "vimfile\n"\
+					  "projectsinfo\n"
+		fi
+	elif [ $argv1 == "edit" ]
+	then
+		if [ -z $argv2 ]
+		then
+			echo "Usage: poiuytrewq edit <edit_options>"
+		elif [ $argv2 == "poiuytrewq"  ]
+		then
+			vim $HOME/bin/poiuytrewq
+		elif [ $argv2 == "vimrc"  ]
+		then
+			vim $HOME/.vimrc	
+		elif [ $argv2 == "bashrc"  ]
+		then
+			vim $HOME/.bashrc
+		elif [ $argv2 == "ftvim"  ]
+		then
+			if [ -z $argv3 ]
+			then
+				echo "Usage: poiuytrewq edit vimft <filetype>"
+			elif [ $(ls $HOME/.vim/ftplugin | grep -w $argv3) ]
+			then
+				vim $HOME/.vim/ftplugin/$argv3.vim
+			else
+				echo -e "Usage: poiuytrewq edit vimft <type>\n"
+			fi
+		fi
+	fi
+}

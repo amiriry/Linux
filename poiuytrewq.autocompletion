@@ -1,0 +1,28 @@
+_poiuytrewq() {
+	poi_path=<path_to_poiuytrewq_command>
+	local cur prev words cwords
+	_init_completion || return
+
+	case $prev in
+		poiuytrewq2)
+			local completion_str=$(cat $poi_path | grep "if.*argv1.*==" | awk -F'["]' '{print $2}')
+			#completion_str=$(echo $completion_str "activate" "deactivate")
+			COMPREPLY=($(compgen -W "${completion_str}" -- "$cur"))
+			return
+			;;
+		goto)
+			local completion_str=$(sed -n '/if.*argv1.*goto/,/if.*argv1.*edit/ p' $poi_path  | grep argv2 | grep -v "sed" | awk -F'[\"]' '{print $2}')
+			COMPREPLY=($(compgen -W "${completion_str}" -- "$cur"))
+			return
+			;;
+		edit)
+			local completion_str=$(sed -n '/argv1.*edit/,/argv1.*tasks/ p' $poi_path  | grep argv2 | awk -F'[\"]' '{print $2}')
+			COMPREPLY=($(compgen -W "${completion_str}" -- "$cur"))
+			return
+			;;
+	esac
+	_filedir
+} &&
+complete -F _poiuytrewq2 poiuytrewq2
+
+# ex: filetype=sh
